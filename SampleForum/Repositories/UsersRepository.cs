@@ -1,27 +1,25 @@
 ﻿using SampleForum.Entities;
 using SampleForum.Models;
-using SampleForum.Repositoies;
 
 namespace SampleForum.Repositories
 {
-    public class QuestionsRepository : IQuestionsRepository
+    public class UsersRepository : IUsersRepository
     {
-        public List<Question> GetQuestions()
+        public List<User> GetUsers()
         {
             using(var dbContext = new DAL())
             {
-                return dbContext.Questions.ToList();
+                return dbContext.Users.ToList();
             }
         }
 
-        public void UpdateQuestion(Question question)
+        public void UpdateUser(User user)
         {
             using(var dbContext = new DAL())
             {
-                dbContext.Questions.Update(question);
+                dbContext.Users.Update(user);
                 dbContext.SaveChanges();
             }
-        
         }
     }
 }
