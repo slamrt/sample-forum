@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SampleForum.Entities;
+using Microsoft.Extensions.Configuration;
+
+
 
 namespace SampleForum.Models
 {
@@ -10,12 +13,18 @@ namespace SampleForum.Models
             Database.EnsureCreated();
         }
 
+      
         public DbSet<Question> Questions { get; set; }
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SampleForum;Integrated Security=True;Encrypt=False;TrustServerCertificate=False;");
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("SampleForumDb"));
+           
         }
     }
 }
