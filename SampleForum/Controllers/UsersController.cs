@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 using SampleForum.Entities;
 using SampleForum.Repositories;
+using System.Reflection.Metadata.Ecma335;
 
 namespace SampleForum.Controllers
 {
@@ -11,6 +13,11 @@ namespace SampleForum.Controllers
         public UsersController(IUsersRepository usersRepository)
         {
             this.usersRepository = usersRepository;
+        }
+
+        public IActionResult Index()
+        {
+            return View("View1");
         }
 
         [HttpGet]
@@ -35,6 +42,7 @@ namespace SampleForum.Controllers
         {
             if (user == null) { return BadRequest(ModelState); }
             usersRepository.UpdateUser(user);
+            
             return Ok();
         }
 
