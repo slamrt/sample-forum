@@ -37,5 +37,7 @@ namespace SampleForum.Controllers
             usersRepository.UpdateUser(user);
             return Ok();
         }
+
+        
     }
 }
